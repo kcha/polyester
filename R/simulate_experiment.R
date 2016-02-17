@@ -145,6 +145,9 @@
 #'   your simulation).
 #' @param paired If \code{TRUE}, paired-end reads are simulated; else
 #'   single-end reads are simulated. Default \code{TRUE}
+#' @param cores Number of cores to use for parallel processing. Parallization
+#' is performed over replicates. So it only useful when there is more than
+#' one replicate
 #' @param ... any of several other arguments that can be used to add nuance
 #'   to the simulation. See details.
 #'
@@ -281,7 +284,7 @@
 #'
 simulate_experiment = function(fasta=NULL, gtf=NULL, seqpath=NULL,
     outdir='.', num_reps=c(10,10), reads_per_transcript=300, size=NULL,
-    fold_changes, paired=TRUE, reportCoverage=F, ...){
+    fold_changes, paired=TRUE, reportCoverage=F, cores=1, ...){
 
     extras = list(...)
 
@@ -366,7 +369,7 @@ simulate_experiment = function(fasta=NULL, gtf=NULL, seqpath=NULL,
     }
 
     # do the actual sequencing
-    sgseq(readmat, transcripts, paired, outdir, extras, reportCoverage)
+    sgseq(readmat, transcripts, paired, outdir, extras, reportCoverage, cores)
 
     # write out simulation information, if asked for:
     if(!('write_info' %in% names(extras))){

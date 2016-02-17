@@ -1,6 +1,8 @@
 ## internal sequencing function
+#' @import doMC
 
-sgseq = function(readmat, transcripts, paired, outdir, extras, reportCoverage=F){
+sgseq = function(readmat, transcripts, paired, outdir, extras, reportCoverage=F,
+cores = 1){
       #report theoretically perfect coverage if reportCoverage=T, will write a file
       if(reportCoverage==T){
             templates = unique(transcripts)
@@ -9,7 +11,9 @@ sgseq = function(readmat, transcripts, paired, outdir, extras, reportCoverage=F)
             names(coverage_matrices) = names(templates)
       }
 
-  for(i in seq_len(ncol(readmat))) {
+  registerDoMC(cores = cores)
+
+  foreach(i = seq_len(ncol(readmat))) %dopar% {
     tObj = rep(transcripts, times=readmat[,i])
     iterations = ceiling(length(tObj) / 1e6L)
     offset = 1L

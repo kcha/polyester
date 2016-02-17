@@ -17,9 +17,11 @@ Imports:
     IRanges,
     S4Vectors,
     logspline,
-    limma
+    limma,
+    doMC (>= 1.3.4)
 Suggests:
     knitr,
     ballgown
 LazyLoad: true
 biocViews: Sequencing, DifferentialExpression
+RoxygenNote: 5.0.1
