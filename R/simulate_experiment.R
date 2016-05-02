@@ -292,7 +292,7 @@
 #'
 simulate_experiment = function(fasta=NULL, gtf=NULL, seqpath=NULL,
     outdir='.', num_reps=c(10,10), reads_per_transcript=300, size=NULL,
-    fold_changes, paired=TRUE, reportCoverage=FALSE, cores=1, ...){
+    paired=TRUE, reportCoverage=FALSE, cores=1, ...){
 
     extras = list(...)
 
@@ -334,9 +334,7 @@ simulate_experiment = function(fasta=NULL, gtf=NULL, seqpath=NULL,
         stop('must provide either fasta or both gtf and seqpath')
     }
 
-    if(length(num_reps) == 1){
-        fold_changes = rep(1, length(transcripts))
-    }
+    fold_changes = matrix(1, nrow=length(transcripts), ncol=length(num_reps))
 
     # check fold change matrix dimensions:
     .check_fold_changes(fold_changes, num_reps, transcripts)
