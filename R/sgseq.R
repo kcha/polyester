@@ -1,7 +1,7 @@
 ## internal sequencing function
 #' @import doMC
 
-sgseq = function(readmat, transcripts, paired, outdir, extras, reportCoverage=F,
+sgseq = function(readmat, transcripts, paired, outdir, extras, reportCoverage=FALSE,
 cores = 1){
       #report theoretically perfect coverage if reportCoverage=T, will write a file
       if(reportCoverage==T){

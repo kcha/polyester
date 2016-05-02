@@ -6,7 +6,7 @@
 \usage{
 simulate_experiment(fasta = NULL, gtf = NULL, seqpath = NULL,
   outdir = ".", num_reps = c(10, 10), reads_per_transcript = 300,
-  size = NULL, fold_changes, paired = TRUE, reportCoverage = F,
+  size = NULL, fold_changes, paired = TRUE, reportCoverage = FALSE,
   cores = 1, ...)
 }
 \arguments{
@@ -172,8 +172,16 @@ Reads can either be simulated from a FASTA file of transcripts
   \item \code{gzip}: pass \code{gzip=TRUE} to write gzipped fasta files as
   output (by default, fasta output files are not compressed when written to
   disk).
-  \item You can also include other parameters to pass to
-  \code{\link{seq_gtf}} if you're simulating from a GTF file.
+  \item \code{exononly}: (passed to \code{\link{seq_gtf}}) if \code{TRUE}
+  (as it is by default), only create transcript sequences from the features
+  labeled \code{exon} in \code{gtf}.
+  \item \code{idfield}: (passed to \code{\link{seq_gtf}})in the
+  \code{attributes} column of \code{gtf}, what is the name of the field
+  identifying transcripts? Should be character. Default
+  \code{"transcript_id"}.
+  \item \code{attrsep}: (passed to \code{\link{seq_gtf}}) in the
+  \code{attributes} column of \code{gtf}, how are attributes separated?
+  Default \code{"; "}.
   }
 }
 \examples{
